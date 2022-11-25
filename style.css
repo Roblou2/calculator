@@ -1,0 +1,106 @@
+body {
+    width: 100%;
+    height: 100%;
+}
+
+#grid {
+    display: grid;
+    width: 20%;
+    height: 70%;
+    margin: 10vw auto;
+grid-template-areas:    'display display display display'
+                        'clear clear del del'
+                      'seven eight nine div' 
+                       'four five six multi'
+                       'one two three sub'
+                       'point zero equals add';
+
+grid-template-rows: repeat(6, 4vw);
+grid-template-columns: repeat(4, 4vw);
+row-gap: 5px;
+column-gap: 5px;
+background-color:goldenrod;
+}
+
+#grid > button {
+    background-color: grey;
+    font-size: 2vw;
+}
+
+.display {
+    grid-area: display;
+    background-color: beige;
+    font-size: 3vw;
+    text-align: right;
+}
+.one {
+    grid-area: one;
+}
+
+.two {
+    grid-area: two;
+}
+
+.three {
+    grid-area: three;
+}
+
+.four {
+    grid-area: four;
+}
+
+.five {
+    grid-area: five;
+}
+
+.six {
+    grid-area: six;
+}
+
+.seven {
+    grid-area: seven;
+}
+
+.eight {
+    grid-area: eight;
+}
+
+.nine {
+    grid-area: nine;
+}
+
+.zero {
+    grid-area: zero;
+}
+
+.equals {
+    grid-area: equals;
+}
+
+.clear {
+    grid-area: clear;
+}
+
+.point {
+    grid-area: point;
+}
+
+.divide {
+    grid-area: div;
+}
+
+.multi {
+    grid-area: multi;
+}
+
+.sub {
+    grid-area: sub;
+}
+
+.add {
+    grid-area: add;
+}
+
+.delete {
+    grid-area: del;
+}
