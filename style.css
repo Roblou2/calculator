@@ -30,7 +30,7 @@ background-color:goldenrod;
 .display {
     grid-area: display;
     background-color: beige;
-    font-size: 3vw;
+    font-size: 1.5vw;
     text-align: right;
 }
 .one {

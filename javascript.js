@@ -34,21 +34,41 @@ let numArr = []
 let operator = ""
 
 sum.onclick = () => {
+
+ if (numArr.length == 0) {
   let conv = parseInt(numberOne)
     numArr.push(conv)
     operator = "+"  
-                  //the switch to use in operate function
+                                                      //the switch to use in operate function
     display.innerHTML = `${numArr[0]} ${operator}`
-
+ }
+ else if (numArr.length == 1) {
+    let conv = parseInt(numberTwo)
+    numArr.push(conv)
+    numArr.reduce((accumulator, currentValue) => {
+        operate(accumulator, currentValue)
+            })
+ }
 }
 
 
 //call this function when '=' pressed
 
+equals.onclick = () => {
+    let conv = parseInt(numberTwo)
+    numArr.push(conv)
+    numArr.reduce((accumulator, currentValue) => {
+operate(accumulator, currentValue)
 
-function operate (a, b, sub, add) {
-diff.addEventListener('click', sub(a, b))
-sum.addEventListener('click', add (a, b))
+    })
+  
+}
+
+
+function operate (accumulator, currentValue) {
+if (operator == '+') {
+display.innerHTML = add(accumulator, currentValue)
+}
 }
 
 
@@ -85,10 +105,10 @@ numberOne += nextStr
 numberTwo += nextStr
 display.innerHTML = `${numArr[0]} ${operator} ${numberTwo}`
     }
-    }
+}
 
 
 
-//look at making operators into objects//
+
 
 
