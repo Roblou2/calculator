@@ -36,9 +36,10 @@ let operator = ""
 sum.onclick = () => {
   let conv = parseInt(numberOne)
     numArr.push(conv)
-    let operator = "+"     //the switch to use in operate function
+    operator = "+"  
+                  //the switch to use in operate function
     display.innerHTML = `${numArr[0]} ${operator}`
- console.log(numArr)
+
 }
 
 
@@ -61,9 +62,11 @@ let num = document.querySelectorAll('.num')
 
 
 function loop () {
+   
     for (let i = 0; i < num.length; i++) {
-        
+ 
         num[i].addEventListener('click', (e) => makeNumStr(e.target.innerHTML)) 
+  
     }
 }
 
@@ -72,14 +75,17 @@ window.onload = () => {
 }
 
 function makeNumStr (val) { 
-           //can still make decimal numbers as strings and then convert to number
-  let  next = val
-let nextStr = next.toString() 
+    let  next = val
+    let nextStr = next.toString()    //can still make decimal numbers as strings and then convert to number
+    if (operator == "") {
 numberOne += nextStr
     display.innerHTML = numberOne
-       
     }
-
+    else if (operator != "") {
+numberTwo += nextStr
+display.innerHTML = `${numArr[0]} ${operator} ${numberTwo}`
+    }
+    }
 
 
 
