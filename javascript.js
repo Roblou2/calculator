@@ -33,49 +33,120 @@ let numArr = []
 
 let operator = ""
 
-sum.onclick = () => {
+sum.onclick = addition
+prod.onclick = multiply 
+equals.onclick = eval 
 
- if (numArr.length == 0) {
-  let conv = parseInt(numberOne)
-    numArr.push(conv)
-    operator = "+"  
-                                                      //the switch to use in operate function
+   function addition () { //add OR here for setting up more operators
+
+    if (operator == 'X') {
+        let conv = parseInt(numberOne) 
+    
+        numArr.push(conv) 
+        numArr.reduce((initial, currentValue) => {
+            operate(initial, currentValue)
+        
+           })     
+           operator = '+'
+           display.innerHTML = `${numArr[0]}`
+    }
+
+operator = '+'
+
+    if (numberOne != "" && numArr.length == 0) {
+    let conv = parseInt(numberOne)
+    numArr.push(conv)                           
     display.innerHTML = `${numArr[0]} ${operator}`
+    numberOne = ""
  }
- else if (numArr.length == 1) {
-    let conv = parseInt(numberTwo)
-    numArr.push(conv)
-    numArr.reduce((accumulator, currentValue) => {
-        operate(accumulator, currentValue)
-            })
+ else if (numArr[0] > 0 && numberOne != "") {  
+
+    //fires when first number has been entered, pushed to array and the 'plus' operator has been pressed
+    let conv = parseInt(numberOne) 
+
+    numArr.push(conv) //now array has numberOne and numberTwo
+
+    numArr.reduce((initial, currentValue) => {
+        operate(initial, currentValue)
+    
+       })     
+      
  }
+ }
+
+function multiply () {
+
+if (operator == '+') { //add OR here for setting up more operators
+    let conv = parseInt(numberOne) 
+
+    numArr.push(conv) 
+    numArr.reduce((initial, currentValue) => {
+        operate(initial, currentValue)
+    
+       })     
+       operator = 'X'
+       display.innerHTML = `${numArr[0]}`
+}
+
+    operator = 'X'
+
+    if (numberOne != "" && numArr.length == 0) {
+    let conv = parseInt(numberOne)
+    numArr.push(conv)                           
+    display.innerHTML = `${numArr[0]} ${operator}`
+    numberOne = ""
+ }
+ else if (numArr[0] > 0 && numberOne != "") {  
+
+    //fires when first number has been entered, pushed to array and the 'plus' operator has been pressed
+    let conv = parseInt(numberOne) 
+
+    numArr.push(conv) 
+
+    numArr.reduce((initial, currentValue) => {
+        operate(initial, currentValue)
+    
+       })     
+      
+ }
+
 }
 
 
 //call this function when '=' pressed
+function eval () {
 
-equals.onclick = () => {
-    let conv = parseInt(numberTwo)
-    numArr.push(conv)
-    numArr.reduce((accumulator, currentValue) => {
-operate(accumulator, currentValue)
+    let conv = parseInt(numberOne) 
+    numArr.push(conv) 
+    numArr.reduce((initial, currentValue) => {
+        operate(initial, currentValue)
+       
+      })
+operator = ""
 
-    })
-  
 }
 
 
-function operate (accumulator, currentValue) {
+function operate (initial, currentValue) {
 if (operator == '+') {
-display.innerHTML = add(accumulator, currentValue)
+display.innerHTML = add(initial, currentValue)
+numberOne = ""
+        numArr[0] = parseInt(display.innerHTML)
+        numArr.splice(1)
+
+}
+
+else if (operator == "X") {
+    display.innerHTML = multi(initial, currentValue)
+numberOne = ""
+        numArr[0] = parseInt(display.innerHTML)
+        numArr.splice(1)
+     
 }
 }
 
 
 let numberOne = "" //the first number to be operarted on
-
-let numberTwo = "" //second number
-
 
 
 let num = document.querySelectorAll('.num')
@@ -102,8 +173,8 @@ numberOne += nextStr
     display.innerHTML = numberOne
     }
     else if (operator != "") {
-numberTwo += nextStr
-display.innerHTML = `${numArr[0]} ${operator} ${numberTwo}`
+numberOne += nextStr
+display.innerHTML = `${numArr[0]} ${operator} ${numberOne}`
     }
 }
 
