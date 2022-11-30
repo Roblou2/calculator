@@ -35,11 +35,86 @@ let operator = ""
 
 sum.onclick = addition
 prod.onclick = multiply 
+diff.onclick = subtract
+divide.onclick = division
 equals.onclick = eval 
+
+
+function division () {
+    if (operator == 'X' || operator == '+' || operator == '-') {
+        let conv = parseInt(numberOne) 
+    
+        numArr.push(conv) 
+        numArr.reduce((initial, currentValue) => {
+            operate(initial, currentValue)
+        
+           })     
+           operator = '/'
+           display.innerHTML = `${numArr[0]}`
+    }
+
+operator = '/'
+
+    if (numberOne != "" && numArr.length == 0) {
+    let conv = parseInt(numberOne)
+    numArr.push(conv)                           
+    display.innerHTML = `${numArr[0]} ${operator}`
+    numberOne = ""
+ }
+ else if (numArr[0] > 0 && numberOne != "") {  
+
+
+    let conv = parseInt(numberOne) 
+
+    numArr.push(conv) //now array has numberOne and numberTwo
+
+    numArr.reduce((initial, currentValue) => {
+        operate(initial, currentValue)
+    
+       })     
+      
+ }
+}
+
+function subtract () {
+    if (operator == 'X' || operator == '+' || operator == '/') {
+        let conv = parseInt(numberOne) 
+    
+        numArr.push(conv) 
+        numArr.reduce((initial, currentValue) => {
+            operate(initial, currentValue)
+        
+           })     
+           operator = '-'
+           display.innerHTML = `${numArr[0]}`
+    }
+
+operator = '-'
+
+    if (numberOne != "" && numArr.length == 0) {
+    let conv = parseInt(numberOne)
+    numArr.push(conv)                           
+    display.innerHTML = `${numArr[0]} ${operator}`
+    numberOne = ""
+ }
+ else if (numArr[0] > 0 && numberOne != "") {  
+
+  
+    let conv = parseInt(numberOne) 
+
+    numArr.push(conv) //now array has numberOne and numberTwo
+
+    numArr.reduce((initial, currentValue) => {
+        operate(initial, currentValue)
+    
+       })     
+      
+ }
+}
 
    function addition () { //add OR here for setting up more operators
 
-    if (operator == 'X') {
+    if (operator == 'X' || operator == '-' || operator == '/') {
         let conv = parseInt(numberOne) 
     
         numArr.push(conv) 
@@ -61,7 +136,7 @@ operator = '+'
  }
  else if (numArr[0] > 0 && numberOne != "") {  
 
-    //fires when first number has been entered, pushed to array and the 'plus' operator has been pressed
+
     let conv = parseInt(numberOne) 
 
     numArr.push(conv) //now array has numberOne and numberTwo
@@ -76,7 +151,7 @@ operator = '+'
 
 function multiply () {
 
-if (operator == '+') { //add OR here for setting up more operators
+if (operator == '+' || operator == '-' || operator == '/') { //add OR here for setting up more operators
     let conv = parseInt(numberOne) 
 
     numArr.push(conv) 
@@ -143,6 +218,18 @@ numberOne = ""
         numArr.splice(1)
      
 }
+
+else if (operator == '-') {
+    display.innerHTML = sub(initial, currentValue)
+    numberOne = ""
+    numArr[0] = parseInt(display.innerHTML)
+    numArr.splice(1)
+}
+else if (operator == '/')
+display.innerHTML = div(initial, currentValue)
+numberOne = ""
+numArr[0] = parseInt(display.innerHTML)
+numArr.splice(1)
 }
 
 
