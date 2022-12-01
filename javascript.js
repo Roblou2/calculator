@@ -28,6 +28,8 @@ let diff = document.querySelector('.sub')
 let divide = document.querySelector('.divide')
 let equals = document.querySelector('.equals')
 let reset = document.querySelector('.clear')
+let back = document.querySelector('.delete')
+let decimal = document.querySelector('.point')
 
 //set up code for operator buttons on click 
 let numArr = []
@@ -39,12 +41,19 @@ prod.addEventListener('click', calculation)
 diff.addEventListener('click', calculation)
 divide.addEventListener('click', calculation)
 reset.addEventListener('click', clear)
+back.addEventListener('click', backspace)
+
 equals.onclick = eval 
+
+decimal.addEventListener('click', (e) => makeNumStr(e.target.innerHTML)) 
+
+
 
 function calculation (e) {
 
-    if (operator == 'X' || operator == '+' || operator == '-' || operator == '/') { //do sym in display first
-        let conv = parseInt(number) 
+
+    if (operator != "" && numArr[0] > 0 && number != "") { //do sum in display first
+        let conv = parseFloat(number) 
     
         numArr.push(conv) 
         numArr.reduce((initial, currentValue) => {
@@ -55,11 +64,17 @@ function calculation (e) {
            display.innerHTML = `${numArr[0]}`
     }
 
+    else if (operator != "" && numArr.length != 0 && number == "") {
+     operator = e.target.innerHTML
+     display.innerHTML = `${numArr[0]} ${operator}`
+  
+    }
 
     operator = e.target.innerHTML
+    display.innerHTML = `${numArr[0]} ${operator}`
 
     if (number != "" && numArr.length == 0) { //stores number in numArr
-        let conv = parseInt(number)
+        let conv = parseFloat(number)
         numArr.push(conv)                           
         display.innerHTML = `${numArr[0]} ${operator}`
         number = ""
@@ -67,7 +82,7 @@ function calculation (e) {
      else if (numArr[0] > 0 && number != "") {  //pushes second number to numArr and evaluates sum
     
     
-        let conv = parseInt(number) 
+        let conv = parseFloat(number) 
     
         numArr.push(conv) 
     
@@ -77,13 +92,14 @@ function calculation (e) {
            })     
           
      }
+
 }
 
 
 //call this function when '=' pressed
 function eval () {
 
-    let conv = parseInt(number) 
+    let conv = parseFloat(number) 
     numArr.push(conv) 
     numArr.reduce((initial, currentValue) => {
         operate(initial, currentValue)
@@ -98,7 +114,7 @@ function operate (initial, currentValue) {
 if (operator == '+') {
 display.innerHTML = add(initial, currentValue)
 number = ""
-        numArr[0] = parseInt(display.innerHTML)
+        numArr[0] = parseFloat(display.innerHTML)
         numArr.splice(1)
 
 }
@@ -106,7 +122,7 @@ number = ""
 else if (operator == "X") {
     display.innerHTML = multi(initial, currentValue)
 number = ""
-        numArr[0] = parseInt(display.innerHTML)
+        numArr[0] = parseFloat(display.innerHTML)
         numArr.splice(1)
      
 }
@@ -114,13 +130,13 @@ number = ""
 else if (operator == '-') {
     display.innerHTML = sub(initial, currentValue)
     number = ""
-    numArr[0] = parseInt(display.innerHTML)
+    numArr[0] = parseFloat(display.innerHTML)
     numArr.splice(1)
 }
 else if (operator == '/')
 display.innerHTML = div(initial, currentValue)
 number = ""
-numArr[0] = parseInt(display.innerHTML)
+numArr[0] = parseFloat(display.innerHTML)
 numArr.splice(1)
 }
 
@@ -130,6 +146,37 @@ function clear () {
     operator = ""
     display.innerHTML = 0
 }
+
+function backspace () {
+
+   
+    let isFirst = /\d/g
+    let sumOn = /(\+|-|\*|\/|[X])(?= [0-9])/g
+
+    //conditionals needs to follow this order 
+
+    if (sumOn.test(display.innerHTML) === true && number != "" && operator != "") {
+        let editThree = number.split("")
+        editThree.pop()
+    transformThree = editThree.join("")
+    number = transformThree
+    display.innerHTML = `${numArr[0]} ${operator} ${number}`
+    }
+
+
+    else if(isFirst.test(display.innerHTML) === true && operator == "") { //for no operator pressed and only first number on display
+   
+        let editTwo = number.split("")
+editTwo.pop()
+transformTwo = editTwo.join("")
+number = transformTwo
+display.innerHTML = number
+}
+
+}
+
+
+
 
 
 let number = "" //the first number to be operarted on
@@ -163,9 +210,3 @@ number += nextStr
 display.innerHTML = `${numArr[0]} ${operator} ${number}`
     }
 }
-
-
-
-
-
-
