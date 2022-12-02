@@ -64,7 +64,7 @@ function calculation (e) {
            display.innerHTML = `${numArr[0]}`
     }
 
-    else if (operator != "" && numArr.length != 0 && number == "") {
+    else if (operator != "" && numArr.length != 0 && number == "") { //for showing operator and first number in display
      operator = e.target.innerHTML
      display.innerHTML = `${numArr[0]} ${operator}`
   
@@ -73,13 +73,13 @@ function calculation (e) {
     operator = e.target.innerHTML
     display.innerHTML = `${numArr[0]} ${operator}`
 
-    if (number != "" && numArr.length == 0) { //stores number in numArr
+    if (number != "" && numArr.length == 0) { //for storing first number in numArr
         let conv = parseFloat(number)
         numArr.push(conv)                           
         display.innerHTML = `${numArr[0]} ${operator}`
         number = ""
      }
-     else if (numArr[0] > 0 && number != "") {  //pushes second number to numArr and evaluates sum
+     else if (numArr[0] > 0 && number != "") {  //for pushing second number to numArr and evaluates sum
     
     
         let conv = parseFloat(number) 
@@ -112,32 +112,37 @@ operator = ""
 
 function operate (initial, currentValue) {
 if (operator == '+') {
-display.innerHTML = add(initial, currentValue)
+let equals = add(initial, currentValue)
+display.innerHTML = equals
 number = ""
-        numArr[0] = parseFloat(display.innerHTML)
+        numArr[0] = parseFloat(equals)
         numArr.splice(1)
 
 }
 
 else if (operator == "X") {
-    display.innerHTML = multi(initial, currentValue)
+     let equals = multi(initial, currentValue)
+     display.innerHTML = equals
 number = ""
-        numArr[0] = parseFloat(display.innerHTML)
+        numArr[0] = parseFloat(equals)
         numArr.splice(1)
      
 }
 
 else if (operator == '-') {
-    display.innerHTML = sub(initial, currentValue)
+   let equals = sub(initial, currentValue)
+   display.innerHTML = equals
     number = ""
-    numArr[0] = parseFloat(display.innerHTML)
+    numArr[0] = parseFloat(equals)
     numArr.splice(1)
 }
-else if (operator == '/')
-display.innerHTML = div(initial, currentValue)
+else if (operator == '/') {
+let equals = div(initial, currentValue)
+display.innerHTML = equals
 number = ""
-numArr[0] = parseFloat(display.innerHTML)
+numArr[0] = parseFloat(equals)
 numArr.splice(1)
+}
 }
 
 function clear () {
@@ -151,11 +156,11 @@ function backspace () {
 
    
     let isFirst = /\d/g
+   let isOperator = /(\+|-|\*|\/|[X])/g
     let sumOn = /(\+|-|\*|\/|[X])(?= [0-9])/g
 
-    //conditionals needs to follow this order 
 
-    if (sumOn.test(display.innerHTML) === true && number != "" && operator != "") {
+    if (sumOn.test(display.innerHTML) === true && number != "" && operator != "") { //is there an operation on display to evaluate?
         let editThree = number.split("")
         editThree.pop()
     transformThree = editThree.join("")
@@ -164,14 +169,21 @@ function backspace () {
     }
 
 
+    else if (numArr.length == 1 && isOperator.test(display.innerHTML) === false) { 
+//do nothing for displaying result
+    }
+
     else if(isFirst.test(display.innerHTML) === true && operator == "") { //for no operator pressed and only first number on display
-   
+        if (number < 10) {
+          return clear()
+        }
         let editTwo = number.split("")
 editTwo.pop()
 transformTwo = editTwo.join("")
 number = transformTwo
 display.innerHTML = number
 }
+
 
 }
 
@@ -198,15 +210,28 @@ window.onload = () => {
     loop ()
 }
 
+
 function makeNumStr (val) { 
     let  next = val
-    let nextStr = next.toString()    //can still make decimal numbers as strings and then convert to number
-    if (operator == "") {
+    let nextStr = next.toString()
+
+    if (equals && operator == "") { // lets you type over current result in display
+      
+         number += nextStr
+         numArr = []
+         display.innerHTML = number
+     }
+
+    else if (operator == "") { //for making first number
+       
 number += nextStr
     display.innerHTML = number
     }
-    else if (operator != "") {
+
+    else if (operator != "") { //makes second number
 number += nextStr
 display.innerHTML = `${numArr[0]} ${operator} ${number}`
     }
+
+
 }
