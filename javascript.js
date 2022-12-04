@@ -106,9 +106,10 @@ function eval () {
        
       })
 operator = ""
-
+calculated = true
 }
 
+let calculated = false
 
 function operate (initial, currentValue) {
 if (operator == '+') {
@@ -174,7 +175,7 @@ function backspace () {
     }
 
     else if(isFirst.test(display.innerHTML) === true && operator == "") { //for no operator pressed and only first number on display
-        if (number < 10) {
+        if (number < 10 && number.includes('.') == false) {
           return clear()
         }
         let editTwo = number.split("")
@@ -211,24 +212,35 @@ window.onload = () => {
 }
 
 
+
 function makeNumStr (val) { 
+
+
     let  next = val
     let nextStr = next.toString()
 
-    if (equals && operator == "") { // lets you type over current result in display
-      
-         number += nextStr
-         numArr = []
-         display.innerHTML = number
-     }
-
-    else if (operator == "") { //for making first number
-       
-number += nextStr
-    display.innerHTML = number
+    if (number.includes('.') == true && nextStr == '.') { //ensures decimal point can only be pressed once
+       nextStr = ''
     }
 
+    if (calculated === true && operator == "") { // lets you type over current result in display
+       
+        number += nextStr
+        numArr = []
+        display.innerHTML = number
+       
+    }
+
+    else if (operator == "" ) { //for making first number
+     
+   number += nextStr
+       display.innerHTML = number
+     
+       }
+
+
     else if (operator != "") { //makes second number
+     
 number += nextStr
 display.innerHTML = `${numArr[0]} ${operator} ${number}`
     }
