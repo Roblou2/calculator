@@ -109,11 +109,12 @@ operator = ""
 calculated = true
 }
 
-let calculated = false
+let calculated = false //used in makenumber function to allow you to write over displayed result after using equals operator
 
 function operate (initial, currentValue) {
+ 
 if (operator == '+') {
-let equals = add(initial, currentValue)
+let equals = (Math.round(((add(initial, currentValue)) + Number.EPSILON)*1000000)) / 1000000
 display.innerHTML = equals
 number = ""
         numArr[0] = parseFloat(equals)
@@ -122,7 +123,7 @@ number = ""
 }
 
 else if (operator == "X") {
-     let equals = multi(initial, currentValue)
+     let equals = (Math.round(((multi(initial, currentValue)) + Number.EPSILON)*1000000)) / 1000000
      display.innerHTML = equals
 number = ""
         numArr[0] = parseFloat(equals)
@@ -131,14 +132,15 @@ number = ""
 }
 
 else if (operator == '-') {
-   let equals = sub(initial, currentValue)
+   let equals = (Math.round(((sub(initial, currentValue)) + Number.EPSILON)*1000000)) / 1000000
    display.innerHTML = equals
     number = ""
     numArr[0] = parseFloat(equals)
     numArr.splice(1)
 }
 else if (operator == '/') {
-let equals = div(initial, currentValue)
+ 
+let equals = (Math.round(((div(initial, currentValue)) + Number.EPSILON)*1000000)) / 1000000
 display.innerHTML = equals
 number = ""
 numArr[0] = parseFloat(equals)
