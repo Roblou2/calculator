@@ -16,6 +16,7 @@ function sub (a, b) {
 }
 
 function div (a, b) {
+
     return a / b
 }
 
@@ -68,7 +69,7 @@ function calculation (e) {
 
  
 
-    operator = e.target.innerHTML //toggle between operatoers
+    operator = e.target.innerHTML //toggle between operators
     display.innerHTML = `${numArr[0]} ${operator}`
 
     if (number != "" && numArr.length == 0) { //for storing first number in numArr
@@ -109,12 +110,14 @@ calculated = true
 
 let calculated = false //used in makenumber function to allow you to write over displayed result after using equals operator
 
+
+let inf = "N1C3 TRY 455H013"
 function operate (initial, currentValue) {
  
 if (operator == '+') {
 let equals = (Math.round(((add(initial, currentValue)) + Number.EPSILON)*1000000)) / 1000000
-if (equals > 9999999999999999999999) {
-    equals = equals.toExponential(10)
+if (equals > 9999999999999999999) {
+    equals = equals.toExponential(3)
 }
 display.innerHTML = equals
 number = ""
@@ -125,8 +128,8 @@ number = ""
 
 else if (operator == "X") {
      let equals = (Math.round(((multi(initial, currentValue)) + Number.EPSILON)*1000000)) / 1000000
-     if (equals > 9999999999999999999999) {
-        equals = equals.toExponential(10)
+     if (equals > 9999999999999999999) {
+        equals = equals.toExponential(3)
     }
      display.innerHTML = equals
 number = ""
@@ -137,8 +140,8 @@ number = ""
 
 else if (operator == '-') {
    let equals = (Math.round(((sub(initial, currentValue)) + Number.EPSILON)*1000000)) / 1000000
-   if (equals > 9999999999999999999999) {
-    equals = equals.toExponential(10)
+   if (equals > 9999999999999999999) {
+    equals = equals.toExponential(3)
 }
    display.innerHTML = equals
     number = ""
@@ -146,11 +149,13 @@ else if (operator == '-') {
     numArr.splice(1)
 }
 else if (operator == '/') {
- 
+
 let equals = (Math.round(((div(initial, currentValue)) + Number.EPSILON)*1000000)) / 1000000
-if (equals > 9999999999999999999999) {
-    equals = equals.toExponential(10)
+if (equals > 9999999999999999999) {
+    equals = equals.toExponential(3)
 }
+
+
 display.innerHTML = equals
 number = ""
 numArr[0] = parseFloat(equals)
