@@ -1,5 +1,7 @@
 const display = document.querySelector('.display')
 
+
+
 let a = 0; //first number before an operator is called
 
 
@@ -64,13 +66,9 @@ function calculation (e) {
            display.innerHTML = `${numArr[0]}`
     }
 
-    else if (operator != "" && numArr.length != 0 && number == "") { //for showing operator and first number in display
-     operator = e.target.innerHTML
-     display.innerHTML = `${numArr[0]} ${operator}`
-  
-    }
+ 
 
-    operator = e.target.innerHTML
+    operator = e.target.innerHTML //toggle between operatoers
     display.innerHTML = `${numArr[0]} ${operator}`
 
     if (number != "" && numArr.length == 0) { //for storing first number in numArr
@@ -115,6 +113,9 @@ function operate (initial, currentValue) {
  
 if (operator == '+') {
 let equals = (Math.round(((add(initial, currentValue)) + Number.EPSILON)*1000000)) / 1000000
+if (equals > 9999999999999999999999) {
+    equals = equals.toExponential(10)
+}
 display.innerHTML = equals
 number = ""
         numArr[0] = parseFloat(equals)
@@ -124,6 +125,9 @@ number = ""
 
 else if (operator == "X") {
      let equals = (Math.round(((multi(initial, currentValue)) + Number.EPSILON)*1000000)) / 1000000
+     if (equals > 9999999999999999999999) {
+        equals = equals.toExponential(10)
+    }
      display.innerHTML = equals
 number = ""
         numArr[0] = parseFloat(equals)
@@ -133,6 +137,9 @@ number = ""
 
 else if (operator == '-') {
    let equals = (Math.round(((sub(initial, currentValue)) + Number.EPSILON)*1000000)) / 1000000
+   if (equals > 9999999999999999999999) {
+    equals = equals.toExponential(10)
+}
    display.innerHTML = equals
     number = ""
     numArr[0] = parseFloat(equals)
@@ -141,6 +148,9 @@ else if (operator == '-') {
 else if (operator == '/') {
  
 let equals = (Math.round(((div(initial, currentValue)) + Number.EPSILON)*1000000)) / 1000000
+if (equals > 9999999999999999999999) {
+    equals = equals.toExponential(10)
+}
 display.innerHTML = equals
 number = ""
 numArr[0] = parseFloat(equals)
@@ -226,7 +236,9 @@ function makeNumStr (val) {
     }
 
     if (calculated === true && operator == "") { // lets you type over current result in display
-       
+        if (number.length > 15) {
+            nextStr = ''
+         }
         number += nextStr
         numArr = []
         display.innerHTML = number
@@ -234,15 +246,20 @@ function makeNumStr (val) {
     }
 
     else if (operator == "" ) { //for making first number
-     
+        if (number.length > 15) {
+            nextStr = ''
+         }
    number += nextStr
+
        display.innerHTML = number
      
        }
 
 
     else if (operator != "") { //makes second number
-     
+        if (number.length > 15) {
+            nextStr = ''
+         }
 number += nextStr
 display.innerHTML = `${numArr[0]} ${operator} ${number}`
     }
