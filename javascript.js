@@ -15,6 +15,8 @@ function sub (a, b) {
     return a - b
 }
 
+let compNo = "C0mput3r 54y5 N0"
+
 function div (a, b) {
 
     return a / b
@@ -67,16 +69,22 @@ function calculation (e) {
            display.innerHTML = `${numArr[0]}`
     }
 
- 
 
     operator = e.target.innerHTML //toggle between operators
     display.innerHTML = `${numArr[0]} ${operator}`
 
     if (number != "" && numArr.length == 0) { //for storing first number in numArr
+   
         let conv = parseFloat(number)
         numArr.push(conv)                           
         display.innerHTML = `${numArr[0]} ${operator}`
         number = ""
+    
+     }
+
+     else if (number == "" && operator != "" && numArr.length == 0) { //for when operators pressed but no numbers
+      display.innerHTML = operator
+    
      }
      else if (numArr[0] > 0 && number != "") {  //for pushing second number to numArr and evaluates sum
     
@@ -149,8 +157,13 @@ else if (operator == '-') {
     numArr.splice(1)
 }
 else if (operator == '/') {
-
+    if (initial > 0 && currentValue == 0) {
+        initial = 0
+        currentValue = 0
+      return  display.innerHTML = compNo
+    }
 let equals = (Math.round(((div(initial, currentValue)) + Number.EPSILON)*1000000)) / 1000000
+
 if (equals > 9999999999999999999) {
     equals = equals.toExponential(3)
 }
