@@ -119,7 +119,7 @@ calculated = true
 let calculated = false //used in makenumber function to allow you to write over displayed result after using equals operator
 
 
-let inf = "N1C3 TRY 455H013"
+let inf = "N1C3 TRY"
 function operate (initial, currentValue) {
  
 if (operator == '+') {
